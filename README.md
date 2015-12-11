@@ -40,7 +40,7 @@ drive (d:)
 ## Requirements
 
 Git 1.9 or newer installed and available without full qualified path.
-The prerequire for PHP installed. By example VC11 (PHP5.6) or VC14 (PHP7).
+The prerequire for PHP installed. By example (VC11)[http://www.microsoft.com/en-us/download/details.aspx?id=30679]  (PHP5.6) or (VC14)[http://www.microsoft.com/en-us/download/details.aspx?id=48145]  (PHP7).
 
 
 ## Install the Tool

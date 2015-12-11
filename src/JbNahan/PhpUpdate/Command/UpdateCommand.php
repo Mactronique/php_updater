@@ -53,7 +53,7 @@ class UpdateCommand extends Command
 
         krsort($branch_ver);
         $latest = current($branch_ver);
-        $output->writeln(sprintf('Version a installer : <info>%s</info>', $latest));
+        $output->writeln(sprintf('Version to install : <info>%s</info>', $latest));
 
         $this->download($latest, $output);
 
@@ -76,7 +76,7 @@ class UpdateCommand extends Command
     {
         $completeDest = $this->getApplication()->getConfig()['tmp_dir'].DIRECTORY_SEPARATOR.$latest;
         if (file_exists($completeDest)) {
-            $output->writeln('Source package : <info> OK </info>');
+            $output->writeln('Source package : <info> Already download </info>');
 
             return;
         }

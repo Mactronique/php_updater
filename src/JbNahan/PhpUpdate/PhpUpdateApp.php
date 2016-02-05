@@ -12,6 +12,7 @@ namespace JbNahan\PhpUpdate;
 use JbNahan\PhpUpdate\Config\PhpUpdateConfig;
 use JbNahan\PhpUpdate\Config\SourceConfig;
 use JbNahan\PhpUpdate\Output\MonologOutput;
+use JbNahan\PhpUpdate\Manager\PHPSourceManager;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Symfony\Component\Config\Definition\Processor;
@@ -41,7 +42,7 @@ class PhpUpdateApp extends Application
         parent::__construct('PhpUpdate', '1.1.0');
         $this->add(new Command\ShowConfigCommand());
         $this->add(new Command\UpdateCommand());
-        $this->add(new Command\InitConfigCommand());
+        $this->add(new Command\AddInstallConfigCommand());
         $this->add(new Command\CurrentVersionCommand());
 
         $this->rootDir = realpath(__DIR__.'/../../../');
@@ -123,6 +124,35 @@ class PhpUpdateApp extends Application
         return $this->configs['install'][$install_name];
     }
 
+    public function addPhpInstall($name, array $config){
+        if($this->configs === null){
+            $this->configs= ['install'=>[]];
+        }
+        if($this->phpInstallExists($name)){
+            throw new \Exception("This configuration exists already '".$name."'", 1);
+        }
+
+        $this->configs['install'][$name] = $config;
+
+        $this->setConfig($this->configs);
+    }
+
+    public function phpInstallExists($name){
+        return ($this->configs !== null) && array_key_exists($name, $this->configs['install']);
+    }
+
+    public function configFromPhpDir($dir){
+        if($this->configs === null) {
+            return null;
+        }
+        foreach ($this->configs['install'] as $name => $conf) {
+            if($conf['php_dir'] == $dir){
+                return $conf;
+            }
+        }
+        return null;
+    }
+
     public function isConfigured()
     {
         return null !== $this->configs;
@@ -179,10 +209,12 @@ class PhpUpdateApp extends Application
 
         $processor = new Processor();
         $configuration = new SourceConfig();
-        $this->sources = $processor->processConfiguration(
+        $sources = $processor->processConfiguration(
             $configuration,
             $configs
         );
+
+        $this->sources = new PHPSourceManager($sources['master'], $sources['archives'], $sources['versions']);
 
         /*
          * Chargement de la config si présente
@@ -216,5 +248,13 @@ class PhpUpdateApp extends Application
             $configuration,
             [$config]
         );
+
+        $folder=[];
+        foreach ($this->configs['install'] as $name => $conf) {
+            if(in_array($conf['php_dir'], $folder)){
+                throw new \Exception("This folder '".$conf['php_dir']."' is already used in another configuration.", 1);
+            }
+            $folder[] = $conf['php_dir'];
+        }
     }
 }

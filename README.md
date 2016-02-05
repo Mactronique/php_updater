@@ -107,11 +107,10 @@ Open *ansicon* and go to `sites/tools/php_updater`. Launch `self_install.bat`
 This script download the `composer.phar`, install the vendor dependencies and run the configuration command.
 
 ```
-Please enter the target folder : d:\sites\tools
 Please enter the temporary folder : d:\sites\tmp
 Please enter the PHP folder : d:\sites\tools\php56
 Please enter the backup folder : d:\sites\tools\php56_backup
-PHP branch : php56-nts
+PHP branch : php56_nts
 Configuration  end. Use 'config:show' command for check configuration.
 ```
 

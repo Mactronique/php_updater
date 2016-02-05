@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of package Php Updater.
  *
@@ -6,7 +7,6 @@
  * @author Jean-Baptiste Nahan <jb@nahan.fr>
  * @copyright 2015 Jean-Baptiste Nahan
  */
-
 namespace JbNahan\PhpUpdate\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -27,15 +27,28 @@ class InitConfigCommand extends Command
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         if ($this->getApplication()->isConfigured()) {
-            throw new \Exception("Cannot run init configuration is already configured", 1);
+            throw new \Exception('Cannot run init configuration is already configured', 1);
         }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $config = [];
         $helper = $this->getHelper('question');
+
+        $target = new Question('<info>Please enter the install name : </info>', 'php70');
+        /*$target->setValidator(function ($answer) {
+            if (!file_exists($answer)) {
+                throw new \RuntimeException(
+                    'The target does not exists !'
+                );
+            }
+
+            return $answer;
+        });*/
+        $target->setMaxAttempts(2);
+
+        $name = $helper->ask($input, $output, $target);
 
         $target = new Question('<info>Please enter the target folder : </info>', 'c:\\sites\\outils');
         $target->setValidator(function ($answer) {
@@ -108,7 +121,7 @@ class InitConfigCommand extends Command
 
         $config['php_branch'] = $helper->ask($input, $output, $php_branch);
 
-        $app->setConfig($config);
+        $app->setConfig(['install' => [$name => $config]]);
 
         $app->saveCurrentConfig();
 

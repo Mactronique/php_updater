@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of package Php Updater.
  *
@@ -6,7 +7,6 @@
  * @author Jean-Baptiste Nahan <jb@nahan.fr>
  * @copyright 2015 Jean-Baptiste Nahan
  */
-
 namespace JbNahan\PhpUpdate\Config;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -21,26 +21,34 @@ class PhpUpdateConfig implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('target')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('tmp_dir')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('php_dir')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('backup_dir')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('php_branch')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                    ->defaultValue('php56')
+                ->arrayNode('install')
+                    ->requiresAtLeastOneElement()
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('target')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->scalarNode('tmp_dir')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->scalarNode('php_dir')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->scalarNode('backup_dir')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->scalarNode('php_branch')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                                ->defaultValue('php56')
+                            ->end()
+                        ->end()
+                    ->end()
                 ->end()
             ->end()
         ;

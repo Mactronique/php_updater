@@ -1,6 +1,7 @@
-php_update:
-    target: c:\sites\outils   # Folder Root of tools
-    tmp_dir: %target%\tmp     # Folder for store downloaded zip
-    php_dir: %target%\php56   # Folder updated
-    backup_dir: %target%\     # Folder to write the backup before update
-    php_branch: php56     # The PHP branch to install
+install:
+    install_name:
+        target: c:\sites\outils   # Folder Root of tools
+        tmp_dir: %target%\tmp     # Folder for store downloaded zip
+        php_dir: %target%\php56   # Folder updated
+        backup_dir: %target%\     # Folder to write the backup before update
+        php_branch: php56     # The PHP branch to install

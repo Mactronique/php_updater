@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of package Php Updater.
  *
@@ -6,7 +7,6 @@
  * @author Jean-Baptiste Nahan <jb@nahan.fr>
  * @copyright 2015 Jean-Baptiste Nahan
  */
-
 namespace JbNahan\PhpUpdate;
 
 use JbNahan\PhpUpdate\Config\PhpUpdateConfig;
@@ -26,7 +26,6 @@ use Symfony\Component\Yaml\Yaml;
 
 class PhpUpdateApp extends Application
 {
-
     private $rootDir;
 
     private $configDir;
@@ -39,7 +38,7 @@ class PhpUpdateApp extends Application
 
     public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
-        parent::__construct('PhpUpdate', '1.0.0');
+        parent::__construct('PhpUpdate', '1.1.0');
         $this->add(new Command\ShowConfigCommand());
         $this->add(new Command\UpdateCommand());
         $this->add(new Command\InitConfigCommand());
@@ -48,7 +47,7 @@ class PhpUpdateApp extends Application
         $this->rootDir = realpath(__DIR__.'/../../../');
         $this->configDir = $this->rootDir.DIRECTORY_SEPARATOR.'config';
 
-        /**
+        /*
          * Démarrage de Monolog
          */
 
@@ -75,8 +74,7 @@ class PhpUpdateApp extends Application
             $this->setCatchExceptions(false);
             $exitCode = parent::run($input, $output);
         } catch (\Exception $e) {
-
-            $this->getLogger()->error("Exception : ".$e->getMessage(), ['e'=>$e]);
+            $this->getLogger()->error('Exception : '.$e->getMessage(), ['e' => $e]);
 
             if ($output instanceof ConsoleOutputInterface) {
                 $this->renderException($e, $output->getErrorOutput());
@@ -99,7 +97,6 @@ class PhpUpdateApp extends Application
             }
 
             exit($exitCode);
-
         }
 
         return $exitCode;
@@ -143,19 +140,18 @@ class PhpUpdateApp extends Application
     {
         $this->logger->debug('App boot');
         if (PHP_VERSION_ID < 50613) {
-            $this->getLogger()->error("Error : This app cannot run on PHP version prior 5.6.13");
-            throw new \Exception("Error : This app cannot run on PHP version prior 5.6.13", 1);
-
+            $this->getLogger()->error('Error : This app cannot run on PHP version prior 5.6.13');
+            throw new \Exception('Error : This app cannot run on PHP version prior 5.6.13', 1);
         }
 
         $sourcesFile = $this->configDir.DIRECTORY_SEPARATOR.'sources.yml';
 
         if (!file_exists($sourcesFile)) {
-            $this->getLogger()->error("Error : Sources file not found");
-            throw new \Exception("Error : Sources file not found", 1);
+            $this->getLogger()->error('Error : Sources file not found');
+            throw new \Exception('Error : Sources file not found', 1);
         }
 
-        /**
+        /*
          * Chargement du fichier source
          */
 
@@ -172,7 +168,7 @@ class PhpUpdateApp extends Application
             $configs
         );
 
-        /**
+        /*
          * Chargement de la config si présente
          */
 
@@ -194,7 +190,6 @@ class PhpUpdateApp extends Application
         }
 
         $this->validateConfig($config);
-
     }
 
     private function validateConfig(array $config)
@@ -206,5 +201,4 @@ class PhpUpdateApp extends Application
             [$config]
         );
     }
-
 }

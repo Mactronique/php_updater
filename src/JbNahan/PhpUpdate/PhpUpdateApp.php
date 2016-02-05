@@ -107,6 +107,22 @@ class PhpUpdateApp extends Application
         return $this->configs;
     }
 
+    public function configForInstall($install_name = null)
+    {
+        $allInstall = array_keys($this->configs['install']);
+
+        //Une install et pas de valeur dans la ligne de commande.
+        if (null === $install_name && 1 == count($allInstall)) {
+            $install_name = $allInstall[0];
+        }
+
+        if (null === $install_name || !in_array($install_name, $allInstall)) {
+            throw new \Exception('Install not found "'.((null === $install_name) ? 'null' : $install_name).'". Please select between ['.implode(', ', $allInstall).']', 1);
+        }
+
+        return $this->configs['install'][$install_name];
+    }
+
     public function isConfigured()
     {
         return null !== $this->configs;

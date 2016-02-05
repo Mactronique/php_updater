@@ -18,7 +18,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 
 class UpdateCommand extends Command
 {
-    private $install_name;
+    private $install_config;
     protected function configure()
     {
         $this
@@ -53,20 +53,9 @@ class UpdateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->install_name = $input->getArgument('install_name');
+        $this->install_config = $this->getApplication()->configForInstall($input->getArgument('install_name'));
 
-        $allInstall = array_keys($this->getApplication()->getConfig()['install']);
-
-        //Une install et pas de valeur dans la ligne de commande.
-        if (null === $this->install_name && 1 == count($allInstall)) {
-            $this->install_name = $allInstall[0];
-        }
-
-        if (null === $this->install_name || !in_array($this->install_name, $allInstall)) {
-            throw new \Exception('Install not found "'.((null === $this->install_name) ? 'null' : $this->install_name).'". Please select between ['.implode(', ', $allInstall).']', 1);
-        }
-
-        $branch = $this->getApplication()->getConfig()['install'][$this->install_name]['php_branch'];
+        $branch = $this->install_config['php_branch'];
         $output->writeln(sprintf('Branch PHP : <info>%s</info>', $branch));
 
         $branch_ver = $this->getApplication()->getSources()['versions'][$branch];
@@ -93,7 +82,7 @@ class UpdateCommand extends Command
 
     private function download($latest, OutputInterface $output)
     {
-        $completeDest = $this->getApplication()->getConfig()['install'][$this->install_name]['tmp_dir'].DIRECTORY_SEPARATOR.$latest;
+        $completeDest = $this->install_config['tmp_dir'].DIRECTORY_SEPARATOR.$latest;
         if (file_exists($completeDest)) {
             $output->writeln('Source package : <info> Already download </info>');
 
@@ -125,9 +114,9 @@ class UpdateCommand extends Command
 
     private function backup(OutputInterface $output)
     {
-        $pathInstall = $this->getApplication()->getConfig()['install'][$this->install_name]['php_dir'];
-        $pathBackup = $this->getApplication()->getConfig()['install'][$this->install_name]['backup_dir'];
-        $php_branch = $this->getApplication()->getConfig()['install'][$this->install_name]['php_branch'];
+        $pathInstall = $this->install_config['php_dir'];
+        $pathBackup = $this->install_config['backup_dir'];
+        $php_branch = $this->install_config['php_branch'];
         $pathZipBackup = $pathBackup.DIRECTORY_SEPARATOR.$php_branch.'.'.date('YmdHis').'.zip';
 
         $output->writeln(sprintf('Backup : <info>%s</info>', $pathInstall));
@@ -143,8 +132,8 @@ class UpdateCommand extends Command
 
     private function install($latest, OutputInterface $output)
     {
-        $pathInstall = $this->getApplication()->getConfig()['install'][$this->install_name]['php_dir'];
-        $completeDest = $this->getApplication()->getConfig()['install'][$this->install_name]['tmp_dir'].DIRECTORY_SEPARATOR.$latest;
+        $pathInstall = $this->install_config['php_dir'];
+        $completeDest = $this->install_config['tmp_dir'].DIRECTORY_SEPARATOR.$latest;
 
         $output->writeln(sprintf('Install into : <info> %s </info>', $pathInstall));
 

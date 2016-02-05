@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of package Php Updater.
  *
@@ -6,7 +7,6 @@
  * @author Jean-Baptiste Nahan <jb@nahan.fr>
  * @copyright 2015 Jean-Baptiste Nahan
  */
-
 namespace JbNahan\PhpUpdate\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -20,29 +20,35 @@ class CurrentVersionCommand extends Command
         $this
             ->setName('php:version')
             ->setDescription('Display php current version')
+            ->addArgument(
+                'install_name',
+                InputArgument::OPTIONAL,
+                'Install to update'
+            )
         ;
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         if (false === getenv('OS') || 'Windows_NT' !== getenv('OS')) {
-            throw new \Exception("This project can run only on Windows System", 1);
+            throw new \Exception('This project can run only on Windows System', 1);
         }
 
         if (!$this->getApplication()->isConfigured()) {
-            throw new \Exception("Cannot run update if app is not configured", 1);
+            throw new \Exception('Cannot run update if app is not configured', 1);
         }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $config = $this->getApplication()->configForInstall($input->getArgument('install_name'));
         $output->writeln('Check current version :');
 
-        $pathInstall = $this->getApplication()->getConfig()['php_dir'];
+        $pathInstall = $config['php_dir'];
 
         exec($pathInstall.DIRECTORY_SEPARATOR.'php.exe -v', $out);
         if (empty($out)) {
-            throw new \Exception("Unable to execute php.exe on php_dir", 1);
+            throw new \Exception('Unable to execute php.exe on php_dir', 1);
         }
 
         foreach ($out as $key => $value) {

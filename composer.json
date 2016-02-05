@@ -3,6 +3,8 @@
     "license": "MIT",
     "type": "project",
     "description": "The PHP Updater for Windows Server and WorkStation",
+    "keywords": ["php", "update", "windows"],
+    "homepage": "https://github.com/Mactronique/php_updater",
     "autoload": {
         "psr-4": { "": "src/" }
     },
@@ -14,6 +16,7 @@
         "symfony/console": "^3.0",
         "symfony/config": "^3.0"
     },
+    "bin": ["PhpUpdate"],
     "require-dev": {
         "symfony/var-dumper": "^3.0"
     },

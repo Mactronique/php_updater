@@ -119,17 +119,17 @@ For the php branch, read the file `config/sources.yml`
 | PHP version | NTS or TS | Arch | Branch        |
 | ----------- | --------- | ---- | ------------- |
 | 5.6         | TS        | x86  | php56         |
-| 5.6         | NTS       | x86  | php56-nts     |
-| 5.6         | TS        | x64  | php56-x64     |
-| 5.6         | NTS       | x64  | php56-x64-nts |
+| 5.6         | NTS       | x86  | php56_nts     |
+| 5.6         | TS        | x64  | php56_x64     |
+| 5.6         | NTS       | x64  | php56_x64_nts |
 
 
 | PHP version | NTS or TS | Arch | Branch        |
 | ----------- | --------- | ---- | ------------- |
 | 7.0         | TS        | x86  | php70         |
-| 7.0         | NTS       | x86  | php70-nts     |
-| 7.0         | TS        | x64  | php70-x64     |
-| 7.0         | NTS       | x64  | php70-x64-nts |
+| 7.0         | NTS       | x86  | php70_nts     |
+| 7.0         | TS        | x64  | php70_x64     |
+| 7.0         | NTS       | x64  | php70_x64_nts |
 
 ## Use
 

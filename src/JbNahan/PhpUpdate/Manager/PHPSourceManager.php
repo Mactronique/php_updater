@@ -30,6 +30,18 @@ class PHPSourceManager
         return current($branch_ver);
 	}
 
+	public function zipNameForVersion($branch, $version)
+	{
+		if(!$this->branchExists($branch)){
+			return null;
+		}
+		$branch_ver = $this->versions[$branch];
+		if(!array_key_exists($version, $branch_ver)){
+			return null;
+		}
+		return $branch_ver[$version];
+	}
+
 	public function branchExists($branch)
 	{
 		return array_key_exists($branch, $this->versions);

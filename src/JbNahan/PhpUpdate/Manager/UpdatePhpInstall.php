@@ -18,6 +18,7 @@ class UpdatePhpInstall
 
 	public function __construct(array $config, PHPSourceManager $sources){
 		$this->config = $config;
+        $this->sources = $sources;
 	}
 
 	public function update($latest, OutputInterface $output){
@@ -28,7 +29,32 @@ class UpdatePhpInstall
         $this->install($latest, $output);
 	}
 
+    public function detectCurrentVersion()
+    {
+        $pathInstall = $this->config['php_dir'];
 
+        exec($pathInstall.DIRECTORY_SEPARATOR.'php.exe -v', $out);
+        if (empty($out)) {
+            throw new \Exception('Unable to execute php.exe on php_dir', 1);
+        }
+
+        if(preg_match('/PHP ([0-9\.]*) /i', $out[0], $matches)){
+            return $matches[1];
+        }
+        return null;
+    }
+
+    public function updateAvailable()
+    {
+        $current = $this->detectCurrentVersion();
+        $latest = $this->sources->latestVersionForBranch($this->config['php_branch']);
+        $actualZip = $this->sources->zipNameForVersion($this->config['php_branch'], $current);
+
+        if($latest !== $actualZip){
+            return $latest;
+        }
+        return false;
+    }
 
     private function download($latest, OutputInterface $output)
     {

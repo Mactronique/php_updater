@@ -73,6 +73,6 @@ class UpdateCommand extends Command
 
         $command = $this->getApplication()->find('php:version');
 
-        $command->run(new ArrayInput([]), $output);
+        $command->run(new ArrayInput(['install_name'=>$input->getArgument('install_name')]), $output);
     }
 }

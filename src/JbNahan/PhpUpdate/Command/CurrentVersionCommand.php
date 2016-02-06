@@ -13,6 +13,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use JbNahan\PhpUpdate\Manager\UpdatePhpInstall;
 
 class CurrentVersionCommand extends Command
 {
@@ -61,7 +62,14 @@ class CurrentVersionCommand extends Command
 
         exec($pathInstall.DIRECTORY_SEPARATOR.'php.exe -m', $out2);
 
+        $output->writeln('');
         $output->writeln('<comment>Modules enabled :</comment>');
         $output->writeln(implode(', ', $out2));
+
+        $updater = new UpdatePhpInstall($config, $this->getApplication()->getSources());
+        if(false !== $version = $updater->updateAvailable()){
+            $output->writeln('');
+            $output->writeln('New version available : <comment>'.$version.'</comment>');
+        }
     }
 }

@@ -11,6 +11,9 @@ versions:
         5.6.19: php-5.6.19-Win32-VC11-x86.zip
         5.6.20: php-5.6.20-Win32-VC11-x86.zip
         5.6.21: php-5.6.21-Win32-VC11-x86.zip
+        5.6.22: php-5.6.22-Win32-VC11-x86.zip
+        5.6.23: php-5.6.23-Win32-VC11-x86.zip
+        5.6.24: php-5.6.24-Win32-VC11-x86.zip
     php56_nts:
         5.6.13: php-5.6.13-nts-Win32-VC11-x86.zip
         5.6.14: php-5.6.14-nts-Win32-VC11-x86.zip
@@ -21,6 +24,9 @@ versions:
         5.6.19: php-5.6.19-nts-Win32-VC11-x86.zip
         5.6.20: php-5.6.20-nts-Win32-VC11-x86.zip
         5.6.21: php-5.6.21-nts-Win32-VC11-x86.zip
+        5.6.22: php-5.6.22-nts-Win32-VC11-x86.zip
+        5.6.23: php-5.6.23-nts-Win32-VC11-x86.zip
+        5.6.24: php-5.6.24-nts-Win32-VC11-x86.zip
     php56_x64:
         5.6.13: php-5.6.13-Win32-VC11-x64.zip
         5.6.14: php-5.6.14-Win32-VC11-x64.zip
@@ -31,6 +37,9 @@ versions:
         5.6.19: php-5.6.19-Win32-VC11-x64.zip
         5.6.20: php-5.6.20-Win32-VC11-x64.zip
         5.6.21: php-5.6.21-Win32-VC11-x64.zip
+        5.6.22: php-5.6.22-Win32-VC11-x64.zip
+        5.6.23: php-5.6.23-Win32-VC11-x64.zip
+        5.6.24: php-5.6.24-Win32-VC11-x64.zip
     php56_x64_nts:
         5.6.13: php-5.6.13-nts-Win32-VC11-x64.zip
         5.6.14: php-5.6.14-nts-Win32-VC11-x64.zip
@@ -41,6 +50,9 @@ versions:
         5.6.19: php-5.6.19-nts-Win32-VC11-x64.zip
         5.6.20: php-5.6.20-nts-Win32-VC11-x64.zip
         5.6.21: php-5.6.21-nts-Win32-VC11-x64.zip
+        5.6.22: php-5.6.22-nts-Win32-VC11-x64.zip
+        5.6.23: php-5.6.23-nts-Win32-VC11-x64.zip
+        5.6.24: php-5.6.24-nts-Win32-VC11-x64.zip
     php70:
         7.0.0: php-7.0.0-Win32-VC14-x86.zip
         7.0.1: php-7.0.1-Win32-VC14-x86.zip
@@ -49,6 +61,8 @@ versions:
         7.0.4: php-7.0.4-Win32-VC14-x86.zip
         7.0.5: php-7.0.5-Win32-VC14-x86.zip
         7.0.6: php-7.0.6-Win32-VC14-x86.zip
+        7.0.7: php-7.0.7-Win32-VC14-x86.zip
+        7.0.8: php-7.0.8-Win32-VC14-x86.zip
     php70_nts:
         7.0.0: php-7.0.0-nts-Win32-VC14-x86.zip
         7.0.1: php-7.0.1-nts-Win32-VC14-x86.zip
@@ -57,6 +71,8 @@ versions:
         7.0.4: php-7.0.4-nts-Win32-VC14-x86.zip
         7.0.5: php-7.0.5-nts-Win32-VC14-x86.zip
         7.0.6: php-7.0.6-nts-Win32-VC14-x86.zip
+        7.0.7: php-7.0.7-nts-Win32-VC14-x86.zip
+        7.0.8: php-7.0.8-nts-Win32-VC14-x86.zip
     php70_x64:
         7.0.0: php-7.0.0-Win32-VC14-x64.zip
         7.0.1: php-7.0.1-Win32-VC14-x64.zip
@@ -65,6 +81,8 @@ versions:
         7.0.4: php-7.0.4-Win32-VC14-x64.zip
         7.0.5: php-7.0.5-Win32-VC14-x64.zip
         7.0.6: php-7.0.6-Win32-VC14-x64.zip
+        7.0.7: php-7.0.7-Win32-VC14-x64.zip
+        7.0.8: php-7.0.8-Win32-VC14-x64.zip
     php70_x64_nts:
         7.0.0: php-7.0.0-nts-Win32-VC14-x64.zip
         7.0.1: php-7.0.1-nts-Win32-VC14-x64.zip
@@ -73,3 +91,5 @@ versions:
         7.0.4: php-7.0.4-nts-Win32-VC14-x64.zip
         7.0.5: php-7.0.5-nts-Win32-VC14-x64.zip
         7.0.6: php-7.0.6-nts-Win32-VC14-x64.zip
+        7.0.7: php-7.0.7-nts-Win32-VC14-x64.zip
+        7.0.8: php-7.0.8-nts-Win32-VC14-x64.zip

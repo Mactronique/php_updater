@@ -131,6 +131,14 @@ For the php branch, read the file `config/sources.yml`
 | 7.0         | TS        | x64  | php70_x64     |
 | 7.0         | NTS       | x64  | php70_x64_nts |
 
+
+| PHP version | NTS or TS | Arch | Branch        |
+| ----------- | --------- | ---- | ------------- |
+| 7.1         | TS        | x86  | php71         |
+| 7.1         | NTS       | x86  | php71_nts     |
+| 7.1         | TS        | x64  | php71_x64     |
+| 7.1         | NTS       | x64  | php71_x64_nts |
+
 ## Use
 
 ### Basic use

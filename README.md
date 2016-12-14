@@ -48,7 +48,7 @@ The prerequire for PHP installed. By example [VC11](http://www.microsoft.com/en-
 * Clone this repos into `sites/tools/php_updater`
 * Open [Ansicon](http://adoxa.altervista.org/ansicon/) and go to install folder.
 * Execute `make_tree.bat`
-* [Download PHP](http://windows.php.net/download/) 5.6.13 for Windows or newer and unzip into `sites/tools/php_updater/php` folder.
+* [Download PHP](http://windows.php.net/download/) 5.6.13+ for Windows or newer and unzip into `sites/tools/php_updater/php` folder.
 * Configure this `sites/tools/php_updater/php/php.ini` the TimeZone
 
 ```

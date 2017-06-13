@@ -4,7 +4,7 @@
  *
  * @license MIT
  * @author Jean-Baptiste Nahan <jb@nahan.fr>
- * @copyright 2015 Jean-Baptiste Nahan
+ * @copyright 2015-2017 Jean-Baptiste Nahan
  */
 
 namespace JbNahan\PhpUpdate\Config;
@@ -74,6 +74,54 @@ class SourceConfig implements ConfigurationInterface
                             ->end()
 
                             ->arrayNode('php70_x64_nts')
+                                ->requiresAtLeastOneElement()
+                                ->useAttributeAsKey('version')
+                                ->prototype('scalar')->cannotBeEmpty()->end()
+                            ->end()
+
+                            ->arrayNode('php71')
+                                ->requiresAtLeastOneElement()
+                                ->useAttributeAsKey('version')
+                                ->prototype('scalar')->cannotBeEmpty()->end()
+                            ->end()
+
+                            ->arrayNode('php71_nts')
+                                ->requiresAtLeastOneElement()
+                                ->useAttributeAsKey('version')
+                                ->prototype('scalar')->cannotBeEmpty()->end()
+                            ->end()
+
+                            ->arrayNode('php71_x64')
+                                ->requiresAtLeastOneElement()
+                                ->useAttributeAsKey('version')
+                                ->prototype('scalar')->cannotBeEmpty()->end()
+                            ->end()
+
+                            ->arrayNode('php71_x64_nts')
+                                ->requiresAtLeastOneElement()
+                                ->useAttributeAsKey('version')
+                                ->prototype('scalar')->cannotBeEmpty()->end()
+                            ->end()
+
+                            ->arrayNode('php72')
+                                ->requiresAtLeastOneElement()
+                                ->useAttributeAsKey('version')
+                                ->prototype('scalar')->cannotBeEmpty()->end()
+                            ->end()
+
+                            ->arrayNode('php72_nts')
+                                ->requiresAtLeastOneElement()
+                                ->useAttributeAsKey('version')
+                                ->prototype('scalar')->cannotBeEmpty()->end()
+                            ->end()
+
+                            ->arrayNode('php72_x64')
+                                ->requiresAtLeastOneElement()
+                                ->useAttributeAsKey('version')
+                                ->prototype('scalar')->cannotBeEmpty()->end()
+                            ->end()
+
+                            ->arrayNode('php72_x64_nts')
                                 ->requiresAtLeastOneElement()
                                 ->useAttributeAsKey('version')
                                 ->prototype('scalar')->cannotBeEmpty()->end()

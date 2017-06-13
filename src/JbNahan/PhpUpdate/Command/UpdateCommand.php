@@ -55,24 +55,35 @@ class UpdateCommand extends Command
     {
         $config = $this->getApplication()->configForInstall($input->getArgument('install_name'));
 
-        $updater = new UpdatePhpInstall($config, $this->getApplication()->getSources());
-
-        $branch = $config['php_branch'];
-        $output->writeln(sprintf('Branch PHP : <info>%s</info>', $branch));
-
-        $latest = $this->getApplication()->getSources()->latestVersionForBranch($branch);
-        $output->writeln(sprintf('Version to install : <info>%s</info>', $latest));
-
-        if ($input->getOption('no-install')) {
-            $output->writeln('<comment>No Install option !</comment>');
-
-            return 0;
+        $installName = $input->getArgument('install_name');
+        $configs = $this->getApplication()->getConfig()['install'];
+        if ($installName !== null) {
+            if (!isset($configs[$installName])) {
+                throw new \Exception("Unable to find configuration ".$installName, 1);
+            }
+            $configs = [$installName => $configs[$installName]];
         }
 
-        $updater->update($latest, $output);
+        foreach ($configs as $installName => $config) {
+            $updater = new UpdatePhpInstall($config, $this->getApplication()->getSources());
 
-        $command = $this->getApplication()->find('php:version');
+            $branch = $config['php_branch'];
+            $output->writeln(sprintf('Branch PHP : <info>%s</info>', $branch));
 
-        $command->run(new ArrayInput(['install_name'=>$input->getArgument('install_name')]), $output);
+            $latest = $this->getApplication()->getSources()->latestVersionForBranch($branch);
+            $output->writeln(sprintf('Version to install : <info>%s</info>', $latest));
+
+            if ($input->getOption('no-install')) {
+                $output->writeln('<comment>No Install option !</comment>');
+
+                continue;
+            }
+
+            $updater->update($latest, $output);
+
+            $command = $this->getApplication()->find('php:version');
+
+            $command->run(new ArrayInput(['install_name'=>$input->getArgument('install_name')]), $output);
+        }
     }
 }

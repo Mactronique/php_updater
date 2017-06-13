@@ -39,7 +39,7 @@ class PhpUpdateApp extends Application
 
     public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
-        parent::__construct('PhpUpdate', '1.1.0');
+        parent::__construct('PhpUpdate', '1.2.0');
         $this->add(new Command\ShowConfigCommand());
         $this->add(new Command\UpdateCommand());
         $this->add(new Command\AddInstallConfigCommand());

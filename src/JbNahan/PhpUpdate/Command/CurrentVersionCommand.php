@@ -43,33 +43,43 @@ class CurrentVersionCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = $this->getApplication()->configForInstall($input->getArgument('install_name'));
-        $output->writeln('Check current version :');
-
-        $pathInstall = $config['php_dir'];
-
-        exec($pathInstall.DIRECTORY_SEPARATOR.'php.exe -v', $out);
-        if (empty($out)) {
-            throw new \Exception('Unable to execute php.exe on php_dir', 1);
-        }
-
-        foreach ($out as $key => $value) {
-            if ($key === 0) {
-                $value = sprintf('<info>%s</info>', $value);
+        $installName = $input->getArgument('install_name');
+        $configs = $this->getApplication()->getConfig()['install'];
+        if ($installName !== null) {
+            if (!isset($configs[$installName])) {
+                throw new \Exception("Unable to find configuration ".$installName, 1);
             }
-            $output->writeln($value);
+            $configs = [$installName => $configs[$installName]];
         }
 
-        exec($pathInstall.DIRECTORY_SEPARATOR.'php.exe -m', $out2);
+        foreach ($configs as $installName => $config) {
+            $output->writeln('Check current version for install '.$installName.' :');
 
-        $output->writeln('');
-        $output->writeln('<comment>Modules enabled :</comment>');
-        $output->writeln(implode(', ', $out2));
+            $pathInstall = $config['php_dir'];
 
-        $updater = new UpdatePhpInstall($config, $this->getApplication()->getSources());
-        if(false !== $version = $updater->updateAvailable()){
+            exec($pathInstall.DIRECTORY_SEPARATOR.'php.exe -v', $out);
+            if (empty($out)) {
+                throw new \Exception('Unable to execute php.exe on php_dir', 1);
+            }
+
+            foreach ($out as $key => $value) {
+                if ($key === 0) {
+                    $value = sprintf('<info>%s</info>', $value);
+                }
+                $output->writeln($value);
+            }
+
+            exec($pathInstall.DIRECTORY_SEPARATOR.'php.exe -m', $out2);
+
             $output->writeln('');
-            $output->writeln('New version available : <comment>'.$version.'</comment>');
+            $output->writeln('<comment>Modules enabled :</comment>');
+            $output->writeln(implode(', ', $out2));
+
+            $updater = new UpdatePhpInstall($config, $this->getApplication()->getSources());
+            if (false !== $version = $updater->updateAvailable()) {
+                $output->writeln('');
+                $output->writeln('New version available : <comment>'.$version.'</comment>');
+            }
         }
     }
 }

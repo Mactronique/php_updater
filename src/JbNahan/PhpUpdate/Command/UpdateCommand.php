@@ -53,8 +53,6 @@ class UpdateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = $this->getApplication()->configForInstall($input->getArgument('install_name'));
-
         $installName = $input->getArgument('install_name');
         $configs = $this->getApplication()->getConfig()['install'];
         if ($installName !== null) {

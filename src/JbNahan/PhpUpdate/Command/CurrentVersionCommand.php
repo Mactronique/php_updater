@@ -53,7 +53,9 @@ class CurrentVersionCommand extends Command
         }
 
         foreach ($configs as $installName => $config) {
+            $output->writeln('**********************************************************');
             $output->writeln('Check current version for install '.$installName.' :');
+            $output->writeln('**********************************************************');
 
             $pathInstall = $config['php_dir'];
 
@@ -75,11 +77,15 @@ class CurrentVersionCommand extends Command
             $output->writeln('<comment>Modules enabled :</comment>');
             $output->writeln(implode(', ', $out2));
 
+            unset($out, $out2);
+
             $updater = new UpdatePhpInstall($config, $this->getApplication()->getSources());
             if (false !== $version = $updater->updateAvailable()) {
                 $output->writeln('');
                 $output->writeln('New version available : <comment>'.$version.'</comment>');
             }
+            $output->writeln('');
+            $output->writeln('');
         }
     }
 }

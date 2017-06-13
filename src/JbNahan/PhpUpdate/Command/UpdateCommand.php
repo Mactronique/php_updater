@@ -65,6 +65,9 @@ class UpdateCommand extends Command
         }
 
         foreach ($configs as $installName => $config) {
+            $output->writeln('**********************************************************');
+            $output->writeln('Update PHP for install '.$installName.' :');
+            $output->writeln('**********************************************************');
             $updater = new UpdatePhpInstall($config, $this->getApplication()->getSources());
 
             $branch = $config['php_branch'];
@@ -84,6 +87,8 @@ class UpdateCommand extends Command
             $command = $this->getApplication()->find('php:version');
 
             $command->run(new ArrayInput(['install_name'=>$input->getArgument('install_name')]), $output);
+            $output->writeln('');
+            $output->writeln('');
         }
     }
 }
